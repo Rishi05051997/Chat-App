@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
     this._authService.loginUser(this.loginForm.value).subscribe(
       data => {
         console.log(data);
-        debugger;
-
         this.tokenService.setToken(data.token);
         this.loginForm.reset();
         setTimeout(()=> {

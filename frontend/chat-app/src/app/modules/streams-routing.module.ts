@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StreamsComponent } from '../components/streams/streams.component';
+import { AuthGuard } from '../guard/auth.guard';
 
 
 const routes : Routes = [
   {
     path:'streams',
-    component: StreamsComponent
+    component: StreamsComponent,
+    canActivate: [AuthGuard]
   }
 ]
 

@@ -11,12 +11,12 @@ export class TokenService {
   ) { }
 
   setToken(token){
-    debugger
+    // debugger
     return this.cookieService.set('chat_token', token);
   }
 
   getToken(){
-    debugger
+    // debugger
     return this.cookieService.get("chat_token");
   }
 
