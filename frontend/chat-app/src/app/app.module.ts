@@ -10,11 +10,13 @@ import { StreamsComponent } from './components/streams/streams.component';
 import { StreamsModule } from './modules/streams.module';
 import { StreamsRoutingModule } from './modules/streams-routing.module';
 import { CookieService } from "ngx-cookie-service";
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
 
 ],
   imports: [
