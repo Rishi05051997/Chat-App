@@ -56,7 +56,7 @@ module.exports = {
             user.create(body).then((user)=> {
                 //// here creating json web token by jsonwebtoken lab 
                 const token = jwt.sign({data: user}, dbConfig.secret, {
-                    expiresIn: 1200
+                    expiresIn: "1h"
                 });
                 //// here saving token to cookie
                 res.cookie('auth', token);
@@ -92,7 +92,7 @@ module.exports = {
                 }
                 //// here creating token for authenticaton
                 const token =  jwt.sign({data: user}, dbConfig.secret, {
-                    expiresIn: 10000
+                    expiresIn: "1h"
                 });
                 /// here saving token in cookie
                 res.cookie('auth', token);

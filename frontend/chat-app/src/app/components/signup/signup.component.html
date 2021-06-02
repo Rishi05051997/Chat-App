@@ -8,7 +8,7 @@
       <div id="errorMsg" *ngIf="errorMessage">
         <span>{{errorMessage}}</span>
       </div>
-      <form [formGroup]='signupForm' class="col s12" (ngSubmit)='signUpUser()'>
+      <form [formGroup]='signupForm' novalidate class="col s12" (ngSubmit)='signUpUser()'>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
