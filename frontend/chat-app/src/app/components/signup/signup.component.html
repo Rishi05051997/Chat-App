@@ -1,13 +1,22 @@
 <div class="container">
   <div class="row">
     <div class="col s10 offset-s1" id='panel'>
+      <div class="progress" *ngIf="showSpinner">
+        <div class="indeterminate"></div>
+      </div>
       <h3 id='title'>Sign Up</h3>
-      <form class="col s12">
+      <div id="errorMsg" *ngIf="errorMessage">
+        <span>{{errorMessage}}</span>
+      </div>
+      <form [formGroup]='signupForm' class="col s12" (ngSubmit)='signUpUser()'>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">account_circle</i>
-            <input  id="user_name" type="text">
+            <input  id="user_name" type="text" formControlName='username'>
             <label for="user_name">Username</label>
+            <span class='error' *ngIf="signupForm.controls.username.touched && signupForm.controls.username.invalid">
+              Usernmae is required
+            </span>
           </div>
 
         </div>
@@ -15,8 +24,11 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
-            <input id="email" type="email" >
+            <input id="email" type="email" formControlName='email'>
             <label for="email">Email</label>
+            <span class='error' *ngIf="signupForm.controls.email.invalid  && signupForm.controls.email.touched">
+              Email is required
+            </span>
           </div>
         </div>
 
@@ -25,11 +37,14 @@
             <i class="material-icons prefix">
               password
               </i>
-            <input id="password" type="password">
+            <input id="password" type="password" formControlName='password'>
             <label for="password">Password</label>
+            <span class='error' *ngIf="signupForm.controls.password.touched && signupForm.controls.password.invalid">
+              Password is required
+            </span>
           </div>
         </div>
-        <button class="btn waves-effect" id="signupbtn">
+        <button class="btn waves-effect" id="signupbtn" [disabled]="signupForm.invalid">
           Sign Up
         </button>
 
