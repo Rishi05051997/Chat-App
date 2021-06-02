@@ -71,5 +71,40 @@ module.exports = {
                 });
             })
         })
+    },
+
+    async loginUser(req, res) {
+        //// here placing check that usernmae & password are mandotory
+        if(!(req.body.username || req.body.password)){
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: 'No Empty fileds allowed'})
+        }
+        ///// here finding usernmae inside databse
+        await user.findOne({username: Helpers.firstLetterUppercase(req.body.username)}).then(user => {
+            //// here if usernmae is not inside db then returning
+            if(!user){
+                return res.status(httpStatus.NOT_FOUND).json({message: 'username is not found'});
+            }
+            //// here comparing password wheather user entered password and password which are entered by user are equal or not by using bcrypt.compare(userEnteredPassword, PasswordInDatabase) method
+            return bcrypt.compare(req.body.password, user.password).then((results)=> {
+                //// if both passwords are incorrect then returning error
+                if(!results){
+                    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: 'Passowrd is incorrect'})
+                }
+                //// here creating token for authenticaton
+                const token =  jwt.sign({data: user}, dbConfig.secret, {
+                    expiresIn: 10000
+                });
+                /// here saving token in cookie
+                res.cookie('auth', token);
+                //// if all things are ok then sending data i.e.., login success
+                return res.status(httpStatus.OK).json({
+                    message: 'Login Successful',
+                    user,
+                    token
+                })
+            })
+        }).catch( err => {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: `Error Occured + ${err}`})
+        })
     }
 };
