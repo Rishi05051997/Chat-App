@@ -23,7 +23,7 @@ module.exports = {
         console.log(value);
         if(error && error.details){
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
-                message: error.details
+                msg: error.details
             })
         }
         /// here checking email is already exist into db or not
