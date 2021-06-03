@@ -4,6 +4,8 @@ import { StreamsComponent } from '../components/streams/streams.component';
 import { TokenService } from '../services/token.service';
 import { ToolbarComponent } from '../components/toolbar/toolbar.component';
 import { SideComponent } from '../components/side/side.component';
+import { PostFormComponent } from '../components/post-form/post-form.component';
+import { PostsComponent } from '../components/posts/posts.component';
 
 
 
@@ -11,7 +13,9 @@ import { SideComponent } from '../components/side/side.component';
   declarations: [
     StreamsComponent,
     ToolbarComponent,
-    SideComponent
+    SideComponent,
+    PostFormComponent,
+    PostsComponent
   ],
   imports: [
     CommonModule
