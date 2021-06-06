@@ -3,6 +3,7 @@ const Joi = require('joi');
 const httpStatus = require('http-status-codes');
 const Post = require('../models/postModels');
 const User = require('../models/userModels');
+const { post } = require('../routes/postRoutes');
 module.exports = 
 {
     AddPost(req, res){
@@ -48,5 +49,22 @@ module.exports =
                 message: 'Error Occured'
             });
         })
+    },
+    async getPosts(req, res){
+        try {
+            const posts = await Post.find({})
+            .populate('User')
+            .sort({created: -1});
+
+            return res.status(httpStatus.OK).json({
+                message: 'All posts',
+                posts
+            })
+
+        } catch (error) {
+            return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                message: 'Error Occured'
+            })
+        }
     }
 }
