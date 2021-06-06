@@ -6,6 +6,9 @@ import { ToolbarComponent } from '../components/toolbar/toolbar.component';
 import { SideComponent } from '../components/side/side.component';
 import { PostFormComponent } from '../components/post-form/post-form.component';
 import { PostsComponent } from '../components/posts/posts.component';
+import { PostService } from '../services/post.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,7 +21,9 @@ import { PostsComponent } from '../components/posts/posts.component';
     PostsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     StreamsComponent,
@@ -26,7 +31,8 @@ import { PostsComponent } from '../components/posts/posts.component';
     SideComponent
   ],
   providers: [
-    TokenService
+    TokenService,
+    PostService
   ]
 })
 export class StreamsModule { }

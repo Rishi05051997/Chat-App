@@ -23,4 +23,17 @@ export class TokenService {
   deleteToken(){
     return this.cookieService.delete('chat_token');
   }
+
+  getPayload(){
+    const token = this.getToken();
+    let payload;
+    if(token) {
+      //// here we splitted token normal token format :- header[0].payload[1].signature[2] --->>> xxxx.yyyy.zzzz
+      payload = token.split('.')[1];
+      ///// by using atob() method to decrypt base64 String
+      payload =  JSON.parse(window.atob(payload));
+    }
+
+    return payload.data;
+  }
 }

@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cokieParser = require('cookie-parser');
 const cors = require('cors');
 const dbCOnfig = require('./config/secret');
-const auth = require('./routes/authRoutes');
+
 const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(dbCOnfig.url, {useNewUrlParser:true, useUnifiedTopology:true});
@@ -22,8 +22,13 @@ app.use((req, res, next)  => {
     next();
 });
 
-
+//// adding middleware for auth Routing
+const auth = require('./routes/authRoutes');
 app.use('/api/chatapp', auth);
+
+///// adding middleware for post routing
+const posts = require('./routes/postRoutes');
+app.use('/api/chatapp', posts);
 
 app.listen(3000, ()=> {
     console.log('Running on port 3000')

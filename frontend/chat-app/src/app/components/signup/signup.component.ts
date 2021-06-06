@@ -35,10 +35,10 @@ export class SignupComponent implements OnInit {
 
   signUpUser(){
     this.showSpinner = true;
-    console.log(this.signupForm.value);
+    // console.log(this.signupForm.value);
     this._authService.registerUser(this.signupForm.value).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
 
         this.tokenService.setToken(data.token);
         this.signupForm.reset();

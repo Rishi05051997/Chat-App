@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.showSpinner = true;
     this._authService.loginUser(this.loginForm.value).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.tokenService.setToken(data.token);
         this.loginForm.reset();
         setTimeout(()=> {
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       err => {
         this.showSpinner = false;
         console.log(err);
+        debugger;
         if(err.error.msg){
           this.errorMessage = err.error.msg[0].message;
         }

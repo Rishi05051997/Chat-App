@@ -2,10 +2,10 @@
   <div class="col s12 m12 l10">
     <div class="card postDiv">
       <div class="card-content">
-        <form>
+        <form [formGroup]="postForm" novalidate>
           <div class="formDIv">
             <!-- <i class="material-icons prefix">mode_edit</i> -->
-            <textarea  id="textarea1" placeholder="Please write caption here" class="materialize-textarea"></textarea>
+            <textarea formControlName="post" id="textarea1" placeholder="Please write caption here" class="materialize-textarea"></textarea>
             <div class="file-field input-field">
               <div class="row">
                 <div class="col s6">
@@ -22,7 +22,7 @@
 
                 </div>
                 <div class="col s6">
-                  <button class="btn postBtn">
+                  <button type="button" (click)="submitPost()" class="btn postBtn">
                     Post
                   </button>
                 </div>

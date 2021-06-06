@@ -16,7 +16,7 @@ export class StreamsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.token = this._tokenService.getToken();
+    this.token = this._tokenService.getPayload()
     console.log(this.token);
   }
 
