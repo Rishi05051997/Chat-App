@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(){
-    //// this is implemented becoause if user is logged in due to some issue users logged in window is off
+    //// this is implemented because if user is logged in due to some issue users logged in window is off
     /// for that case user not logged in again if token is exist in his/her cookies so it automatically get navigated to streams page
     const token = this._tokenService.getToken();
     if(token){
