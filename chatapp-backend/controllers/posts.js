@@ -66,5 +66,95 @@ module.exports =
                 message: 'Error Occured'
             })
         }
+    },
+
+    async LikePost(req, res){
+        const postId = req.body._id;
+        await Post.updateOne(
+            {
+                _id: postId,
+                //// $ne is not equal operator available in MongoDB so that we can avoid the user can like post only once 
+                "likes.username":
+                {
+                    $ne: req.body.username
+                }
+            },
+            {
+                $set:
+                {
+                    likes: 
+                    {
+                        username: req.user.username
+                    }
+                },
+                $inc:
+                {
+                    totalLikes: 1
+                },
+            }
+        )
+        .then(()=> {
+            res.status(httpStatus.OK).json({
+                message:'You likes the post'
+            });
+        })
+        .catch(err=> {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                message:'Error Occured'
+            });
+        })
+
+    },
+
+    async AddComment(req, res){
+        // console.log(req.body);
+        const postId = req.body.postId;
+        await Post.updateOne(
+            {
+                _id: postId,
+            },
+            {
+                $push:
+                {
+                    comments: 
+                    {
+                        userId: req.user._id,
+                        username: req.user.username,
+                        comment: req.body.comment,
+                        createdAt: new Date()
+
+                    }
+                },
+                
+            }
+        )
+        .then(()=> {
+            res.status(httpStatus.OK).json({
+                message:'Comment Added To Post'
+            });
+        })
+        .catch(err=> {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                message:'Error Occured'
+            });
+        })
+
+    },
+
+    async getSinglePost(req, res){
+        await Post.findOne({_id: req.params.id})
+            .populate('user')
+            .populate('comments.userId')
+            .then((post)=> {
+                res.status(httpStatus.OK).json({
+                    message: 'Post Fount',
+                    post
+                })
+            }).catch(err => {
+                res.status(httpStatus.NOT_FOUND).json({
+                    message: 'Post Not Found'
+                })
+            })
+
     }
 }

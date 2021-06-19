@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   errorMessage: String;
-  showSpinner= false;
+  showSpinner = false;
   constructor(
     private _authService: AuthService,
     private fb: FormBuilder,

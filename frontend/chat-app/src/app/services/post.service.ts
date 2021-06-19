@@ -18,4 +18,19 @@ export class PostService {
   getAllPosts() :Observable<any>{
     return this.http.get<any>(`${this.BASEURL}/posts`);
   }
+
+  addPostLike(body) :Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/post/add-like`, body);
+  }
+
+  addComments(postId, comment) :Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/post/add-comment`, {
+      postId,
+      comment
+    });
+  }
+
+  getSinglePost(id): Observable<any> {
+    return this.http.get<any>(`${this.BASEURL}/post/${id}`)
+  }
 }

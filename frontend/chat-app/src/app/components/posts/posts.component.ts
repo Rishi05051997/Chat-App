@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import * as moment from 'moment';
+import io from 'socket.io-client';
+import _ from 'lodash';
+import { TokenService } from 'src/app/services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -9,12 +13,26 @@ import * as moment from 'moment';
 })
 export class PostsComponent implements OnInit {
   posts = [];
+  socketHost:any;
+  socket:any;
+  user:any;
   constructor(
-    private _postService: PostService
-  ) { }
+    private _postService: PostService,
+    private _tokenService: TokenService,
+    private _router: Router
+
+  ) {
+    this.socketHost = 'http://localhost:3000';
+    this.socket = io(this.socketHost,  { transports: ['websocket', 'polling', 'flashsocket'] });
+   }
 
   ngOnInit(): void {
+    this.user = this._tokenService.getPayload()
     this.allPosts();
+    //// here we r calling refresgPage event which is created on backend in stream.js file
+    this.socket.on('refreshPage', (data)=> {
+      this.allPosts();
+    })
   }
 
   allPosts(){
@@ -25,6 +43,10 @@ export class PostsComponent implements OnInit {
 
       },
       err => {
+        if(err.error.token === null){
+          this._tokenService.deleteToken();
+          this._router.navigate([''])
+        }
         console.log(err);
       }
     )
@@ -32,6 +54,26 @@ export class PostsComponent implements OnInit {
 
   TimeFromNow(time){
     return moment(time).fromNow();
+  }
+
+  likePost(post){
+    console.log(post);
+    this._postService.addPostLike(post).subscribe(
+      data => {
+        console.log(data);
+        this.socket.emit('refresh', {});
+      }, err => {
+        console.log(err);
+      }
+    )
+  }
+
+  checkInLikesArray(arr, username){
+    return _.some(arr, {username: username})
+  }
+
+  openCommentBox(post) {
+    this._router.navigate(['post', post._id])
   }
 
 
