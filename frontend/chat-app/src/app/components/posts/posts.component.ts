@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import io from 'socket.io-client';
 import _ from 'lodash';
 import { TokenService } from 'src/app/services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -17,7 +18,9 @@ export class PostsComponent implements OnInit {
   user:any;
   constructor(
     private _postService: PostService,
-    private _tokenService: TokenService
+    private _tokenService: TokenService,
+    private _router: Router
+
   ) {
     this.socketHost = 'http://localhost:3000';
     this.socket = io(this.socketHost,  { transports: ['websocket', 'polling', 'flashsocket'] });
@@ -63,6 +66,10 @@ export class PostsComponent implements OnInit {
 
   checkInLikesArray(arr, username){
     return _.some(arr, {username: username})
+  }
+
+  openCommentBox(post) {
+    this._router.navigate(['post', post._id])
   }
 
 

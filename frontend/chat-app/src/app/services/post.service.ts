@@ -22,4 +22,11 @@ export class PostService {
   addPostLike(body) :Observable<any>{
     return this.http.post<any>(`${this.BASEURL}/post/add-like`, body);
   }
+
+  addComments(postId, comment) :Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/post/add-comment`, {
+      postId,
+      comment
+    });
+  }
 }
