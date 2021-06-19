@@ -66,5 +66,43 @@ module.exports =
                 message: 'Error Occured'
             })
         }
+    },
+
+    async LikePost(req, res){
+        const postId = req.body._id;
+        await Post.updateOne(
+            {
+                _id: postId,
+                //// $ne is not equal operator available in MongoDB so that we can avoid the user can like post only once 
+                "likes.username":
+                {
+                    $ne: req.body.username
+                }
+            },
+            {
+                $set:
+                {
+                    likes: 
+                    {
+                        username: req.user.username
+                    }
+                },
+                $inc:
+                {
+                    totalLikes: 1
+                },
+            }
+        )
+        .then(()=> {
+            res.status(httpStatus.OK).json({
+                message:'You likes the post'
+            });
+        })
+        .catch(err=> {
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                message:'Error Occured'
+            });
+        })
+
     }
 }

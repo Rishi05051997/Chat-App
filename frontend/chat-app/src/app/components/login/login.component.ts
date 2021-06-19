@@ -12,7 +12,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: String;
-  showSpinner= false;
+  showSpinner = false;
   constructor(
     private fb: FormBuilder,
     private _authService: AuthService,
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       err => {
         this.showSpinner = false;
         console.log(err);
-        debugger;
+        // debugger;
         if(err.error.msg){
           this.errorMessage = err.error.msg[0].message;
         }

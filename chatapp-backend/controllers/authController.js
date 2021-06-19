@@ -89,7 +89,7 @@ module.exports = {
             return bcrypt.compare(req.body.password, user.password).then((results)=> {
                 //// if both passwords are incorrect then returning error
                 if(!results){
-                    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: 'Passowrd is incorrect'})
+                    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: 'Passoword is incorrect'})
                 }
                 //// here creating token for authenticaton
                 const token =  jwt.sign({data: user}, dbConfig.secret, {
