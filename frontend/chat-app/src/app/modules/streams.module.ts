@@ -10,6 +10,7 @@ import { PostService } from '../services/post.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from '../components/comments/comments.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -25,7 +26,9 @@ import { CommentsComponent } from '../components/comments/comments.component';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
+
   ],
   exports: [
     StreamsComponent,

@@ -24,4 +24,8 @@ export class ToolbarComponent implements OnInit {
     this._tokenService.deleteToken();
     this._router.navigate(['/']);
   }
+
+  GotoHome(){
+    this._router.navigate(['streams'])
+  }
 }

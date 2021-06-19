@@ -29,4 +29,8 @@ export class PostService {
       comment
     });
   }
+
+  getSinglePost(id): Observable<any> {
+    return this.http.get<any>(`${this.BASEURL}/post/${id}`)
+  }
 }
