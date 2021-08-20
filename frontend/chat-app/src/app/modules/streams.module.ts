@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from '../components/comments/comments.component';
 import { RouterModule } from '@angular/router';
+import { PeopleComponent } from '../components/people/people.component';
+import { UsersService } from '../services/users.service';
 
 
 
@@ -21,7 +23,8 @@ import { RouterModule } from '@angular/router';
     SideComponent,
     PostFormComponent,
     PostsComponent,
-    CommentsComponent
+    CommentsComponent,
+    PeopleComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     TokenService,
-    PostService
+    PostService,
+    UsersService
   ]
 })
 export class StreamsModule { }

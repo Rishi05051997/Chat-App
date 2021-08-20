@@ -36,6 +36,16 @@ app.use('/api/chatapp', auth);
 const posts = require('./routes/postRoutes');
 app.use('/api/chatapp', posts);
 
+
+//// adding middleware for post routing
+const users = require('./routes/userRoutes')
+app.use('/api/chatapp', users)
+
+
+//// adding middleware for friends routing
+const friends = require('./routes/friendsRoutes')
+app.use('/api/chatapp', friends)
+
 const Server = app.listen(3000, ()=> {
     console.log('Running on port 3000')
 });

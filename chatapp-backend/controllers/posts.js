@@ -7,17 +7,19 @@ const { post } = require('../routes/postRoutes');
 module.exports = 
 {
     AddPost(req, res){
+        //// creating validation object here using Joi lab
         const Schema = Joi.object().keys({
             post: Joi.string().required(),
             
         });
         const {error} = Schema.validate(req.body);
+        /// if there was any error in adding post then retrning error reponse
         if(error && error.details){
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
                 msg: error.details
             })
         }
-
+        //// creating Post body object
         const body = {
             user: req.user._id,
             username : req.user.username,
@@ -26,6 +28,7 @@ module.exports =
         }
 
         Post.create(body).then( async (post) => {
+            //// here updating user object for how many posts are created by respective user on the basis of _id
             await User.updateOne(
                 {
                     _id: req.user._id
@@ -50,6 +53,7 @@ module.exports =
             });
         })
     },
+    //// here returning all posts of respective user
     async getPosts(req, res){
         try {
             const posts = await Post.find({})
@@ -67,9 +71,10 @@ module.exports =
             })
         }
     },
-
+    //// here creted like and dislike functionality 
     async LikePost(req, res){
         const postId = req.body._id;
+        //// here again updating user object for like n dislike functionality
         await Post.updateOne(
             {
                 _id: postId,
@@ -105,7 +110,7 @@ module.exports =
         })
 
     },
-
+    ///// here add comment functionality for users post 
     async AddComment(req, res){
         // console.log(req.body);
         const postId = req.body.postId;
@@ -140,7 +145,7 @@ module.exports =
         })
 
     },
-
+    //// for getting only single post 
     async getSinglePost(req, res){
         await Post.findOne({_id: req.params.id})
             .populate('user')
