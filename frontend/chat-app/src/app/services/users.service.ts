@@ -19,6 +19,10 @@ export class UsersService {
     return this.http.post<any>(`${this.BASEURL}/follow-user`, {userFollowed})
   }
 
+  unFollowUser(userFollowed:any):Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/unfollow-user`, {userFollowed})
+  }
+
   getUserById(id:any) :Observable<any>{
     return this.http.get<any>(`${this.BASEURL}/user/${id}`)
   }
