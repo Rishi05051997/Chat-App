@@ -111,7 +111,7 @@ module.exports = {
             .json({ message: 'Error occured' });
         });
     } else {
-      await User.update(
+      await User.updateOne(
         {
           _id: req.user._id,
           'notifications._id': req.params.id
@@ -134,7 +134,7 @@ module.exports = {
   },
 
   async MarkAllNotifications(req, res) {
-    await User.update(
+    await User.updateOne(
       {
         _id: req.user._id
       },

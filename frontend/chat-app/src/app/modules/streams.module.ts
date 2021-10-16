@@ -16,6 +16,7 @@ import { UsersService } from '../services/users.service';
 import { FollowingComponent } from '../components/following/following.component';
 import { FollowersComponent } from '../components/followers/followers.component';
 import { NotificationsComponent } from '../components/notifications/notifications.component';
+import { TopStreamsComponent } from '../components/top-streams/top-streams.component';
 
 
 
@@ -30,7 +31,8 @@ import { NotificationsComponent } from '../components/notifications/notification
     PeopleComponent,
     FollowingComponent,
     FollowersComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    TopStreamsComponent
   ],
   imports: [
     CommonModule,

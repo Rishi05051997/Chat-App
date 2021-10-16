@@ -28,7 +28,20 @@ export class UsersService {
   }
 
   getUserByUsername(Uname:any) :Observable<any>{
-    return this.http.get<any>(`${this.BASEURL}/user/${Uname}`)
+    return this.http.get<any>(`${this.BASEURL}/username/${Uname}`)
+  }
+
+  MarkNotification(id:any, deleteValue?:boolean) :Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/mark/${id}`, {
+      id,
+      deleteValue,
+    })
+  }
+
+  MarkAllAsRead():Observable<any>{
+    return this.http.post<any>(`${this.BASEURL}/mark-all`,{
+      all:true
+    })
   }
 
 

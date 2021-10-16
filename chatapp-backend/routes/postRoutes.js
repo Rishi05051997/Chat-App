@@ -1,18 +1,14 @@
 const express = require('express');
-
 const router = express.Router();
 
-const postController = require('../controllers/posts');
+const PostCtrl = require('../controllers/posts');
+const AuthHelper = require('../helpers/authHelpers');
 
-const authHelper = require('../helpers/authHelpers');
+router.get('/posts', AuthHelper.verifyToken, PostCtrl.GetAllPosts);
+router.get('/post/:id', AuthHelper.verifyToken, PostCtrl.GetPost);
 
-
-router.get('/posts', authHelper.verifyToken , postController.getPosts);
-router.get('/post/:id', authHelper.verifyToken , postController.getSinglePost);
-//// here we r added authentication
-router.post('/post/add-post', authHelper.verifyToken , postController.AddPost);
-router.post('/post/add-like', authHelper.verifyToken , postController.LikePost);
-router.post('/post/add-comment', authHelper.verifyToken , postController.AddComment);
-
+router.post('/post/add-post', AuthHelper.verifyToken, PostCtrl.AddPost);
+router.post('/post/add-like', AuthHelper.verifyToken, PostCtrl.AddLike);
+router.post('/post/add-comment', AuthHelper.verifyToken, PostCtrl.AddComment);
 
 module.exports = router;

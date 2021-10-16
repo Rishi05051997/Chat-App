@@ -8,7 +8,7 @@ const authHelpers = require('../helpers/authHelpers');
 
 router.get('/users', authHelpers.verifyToken, UserCtrl.GetAllUsers)
 router.get('/user/:id', authHelpers.verifyToken, UserCtrl.GetUser)
-router.get('/user/:username', authHelpers.verifyToken, UserCtrl.GetByUsername)
+router.get('/username/:username', authHelpers.verifyToken, UserCtrl.GetByUsername)
 
 
 
